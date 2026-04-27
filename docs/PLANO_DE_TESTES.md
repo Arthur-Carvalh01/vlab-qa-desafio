@@ -10,13 +10,55 @@ O sistema possui uma arquitetura cliente-servidor leve e em contêineres. O fron
 
 | Funcionalidade | Comportamento Esperado | Verificações | Critérios de Aceite |
 | :--- | :--- | :--- | :--- |
-| **Login** | Ao digitar seu usuário e senha corretamente, o usuário irá logar na plataforma. <br><br> Ao tentar acessar com um usuário não cadastrado, o sistema deve exibir a mensagem de erro específica. <br><br> Ao digitar um usuário válido, mas com a senha errada, exibir mensagem de senha incorreta. <br><br> Ao tentar efetuar o login sem preencher os dados, solicitar preenchimento. <br><br> O campo de senha deve ocultar visualmente os caracteres digitados. <br><br> O sistema deve ser acessível e responsivo. | • Login com sucesso (credenciais válidas). <br> • Validação da exibição exata da mensagem para usuário inexistente e para senha incorreta. <br> • Validação da mensagem de alerta para campos vazios. <br> • Verificação do mascaramento do campo de senha. <br> • Teste de responsividade. <br> • Validação de acessibilidade no formulário. | • Ter acessibilidade no sistema e redimensionar a tela. <br> • Mostrar mensagem de erro específica para usuário inexistente e senha incorreta. <br> • Exibir a solicitação de preenchimento em caso de login vazio. <br> • Manter a senha mascarada (oculta) durante a digitação. |
+| **Login** | Ao digitar seu usuário e senha corretamente, o usuário irá logar na plataforma. <br><br> Ao tentar acessar com um usuário não cadastrado, o sistema deve exibir a mensagem de erro específica. <br><br> Ao digitar um usuário válido, mas com a senha errada, exibir mensagem de senha incorreta. <br><br> Ao tentar efetuar o login sem preencher os dados, solicitar preenchimento. <br><br> O campo de senha deve ocultar visualmente os caracteres digitados. <br><br> **Ao marcar a opção "Lembrar-me", o sistema deve persistir as credenciais para facilitar o próximo acesso.** <br><br> O sistema deve ser acessível e responsivo. | • Login com sucesso (credenciais válidas). <br> • Validação da exibição exata da mensagem para usuário inexistente e para senha incorreta. <br> • Validação da mensagem de alerta para campos vazios. <br> • Verificação do mascaramento do campo de senha. <br> • **Validação da funcionalidade de persistência (Lembrar-me).** <br> • Teste de responsividade. <br> • Validação de acessibilidade no formulário. | • Ter acessibilidade no sistema e redimensionar a tela. <br> • Mostrar mensagem de erro específica para usuário inexistente e senha incorreta. <br> • Exibir a solicitação de preenchimento em caso de login vazio. <br> • Manter a senha mascarada (oculta) durante a digitação. <br> • **Garantir que o sistema "lembre" o usuário após o logout se a opção for marcada.** |
 | **Registro** | Ao preencher os dados corretamente, efetuar o cadastro, logar e redirecionar para a conta. <br><br> Tentativas com campos vazios devem ser bloqueadas. | • Realizar o login automático após cadastro. <br> • Validar obrigatoriedade de todos os campos. <br> • Exibir falha para usuário já existente. <br> • Exibir falha se confirmação de senha for diferente. | • Todos os campos são obrigatórios. <br> • Login e redirecionamento automáticos após sucesso. <br> • Impedir cadastro de usuário duplicado. <br> • Impedir cadastro com senhas divergentes. <br> • Validação de formatação correta do e-mail. |
 | **Reset de senha** | (A definir) | (A definir) | (A definir) |
 | **Dashboard** | (A definir) | (A definir) | (A definir) |
 | **Painel admin** | (A definir) | (A definir) | (A definir) |
 | **Logout** | (A definir) | (A definir) | (A definir) |
 | **Coleta de Dados**| (A definir) | (A definir) | (A definir) |
+
+---
+
+## 3.1. Casos de Teste Detalhados (Módulo de Login)
+
+Abaixo estão detalhados os cenários de teste prioritários para garantir a resiliência da autenticação, contemplando caminhos felizes, testes negativos e validações de segurança.
+
+**CT01 - Login com Sucesso (Caminho Feliz)**
+* **Pré-condição:** O usuário deve estar na página de login e possuir credenciais válidas cadastradas.
+* **Passos:** 1. Inserir o nome de usuário válido no campo "Usuário".
+  2. Inserir a senha correspondente no campo "Senha".
+  3. Clicar no botão "Entrar".
+* **Resultado Esperado:** O sistema deve autenticar o usuário e redirecioná-lo imediatamente para a página do Dashboard.
+
+**CT02 - Tentativa de Login com Senha Incorreta (Teste Negativo)**
+* **Pré-condição:** O usuário deve estar na página de login e possuir um nome de usuário válido.
+* **Passos:** 1. Inserir o nome de usuário válido no campo "Usuário".
+  2. Inserir uma senha incorreta/inválida no campo "Senha".
+  3. Clicar no botão "Entrar".
+* **Resultado Esperado:** O sistema deve bloquear o acesso, permanecer na tela de login e exibir a mensagem de erro: "Senha incorreta!".
+
+**CT03 - Submissão de Formulário com Campos Vazios (Teste Negativo)**
+* **Pré-condição:** O usuário deve estar na página de login com os campos em branco.
+* **Passos:** 1. Deixar os campos "Usuário" e "Senha" vazios.
+  2. Clicar no botão "Entrar".
+* **Resultado Esperado:** O sistema deve impedir a submissão e exibir um alerta solicitando: "Por favor, preencha todos os campos".
+
+**CT04 - Validação de Persistência de Dados / Lembrar-me (Teste de UX/Lógica)**
+* **Pré-condição:** O usuário deve estar na página de login e possuir credenciais válidas.
+* **Passos:** 1. Inserir credenciais válidas nos campos de usuário e senha.
+  2. Marcar a checkbox "Lembrar-me".
+  3. Clicar no botão "Entrar" e aguardar o redirecionamento.
+  4. Realizar o Logout da plataforma.
+  5. Retornar à página de Login.
+* **Resultado Esperado:** O campo de usuário deve estar automaticamente preenchido com a informação utilizada no último acesso.
+
+**CT05 - Validação de Segurança e Mascaramento de Senha (Teste de Segurança)**
+* **Pré-condição:** O usuário deve estar na página de login.
+* **Passos:** 1. Clicar no campo "Senha".
+  2. Digitar caracteres alfanuméricos.
+  3. Inspecionar o elemento HTML do campo.
+* **Resultado Esperado:** Os caracteres digitados não devem ser legíveis na tela (devem aparecer como pontos ou asteriscos) e o atributo HTML do campo deve ser do tipo `type="password"`.
 
 ## 4. Estratégia de Teste
 
