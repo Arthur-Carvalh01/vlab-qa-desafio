@@ -113,3 +113,12 @@ Para garantir a qualidade, uma funcionalidade só será considerada Pronta quand
 * **Tolerância a Bugs:** Nenhum bug de severidade Crítica, Alta ou Média em aberto. Apenas bugs de severidade Baixa são tolerados.
 * **Critérios Não-Funcionais:** Validações de acessibilidade e responsividade aprovadas.
 * **Rastreabilidade:** Anomalias documentadas no Bug Report oficial.
+
+## 7. Checklist de Regressão (Pontos Críticos)
+
+Este checklist deve ser executado manualmente em cada nova versão para garantir que regras de negócio vitais não foram quebradas:
+
+- [ ] **Validação de CPF:** Verificar se o campo de ID/CPF possui máscara correta e impede a entrada de números inválidos ou letras.
+- [ ] **Regra de Anomalia (25%):** Validar se o sistema emite alerta ou bloqueia registros onde a variação de indicadores ultrapasse 25% em relação à média do beneficiário.
+- [ ] **Persistência de Sessão:** Garantir que o usuário não consiga acessar `/coleta` ou `/admin` sem estar logado (bypass de URL).
+- [ ] **Integridade do Histórico:** Confirmar se o sistema não está gerando registros duplicados ao clicar uma única vez no botão de submissão.

@@ -43,3 +43,28 @@ Este documento descreve os comportamentos esperados para o Módulo de Login da P
 **Quando** a interface é renderizada em diferentes resoluções de tela (incluindo dispositivos móveis)
 **Então** o formulário deve se redimensionar adequadamente sem quebras de layout
 **E** os elementos de acessibilidade obrigatórios, como a Barra de Governo, devem estar visíveis e funcionais
+
+---
+
+### Funcionalidade: Módulo de Coleta de Dados
+**Como** um usuário autenticado da plataforma
+**Quero** registrar indicadores de desempenho de beneficiários
+**Para** manter o histórico de fomento atualizado
+
+#### Cenário 1: Registro de coleta individual com sucesso
+**Dado** que o usuário está na aba "Coleta Individual"
+**Quando** ele preenche todos os campos com dados válidos e dentro dos limites permitidos
+**Então** o sistema deve processar a informação
+**E** exibir os dados na aba "Histórico" de forma cronológica
+
+#### Cenário 2: Bloqueio de submissão com indicadores fora do limite
+**Dado** que o usuário está preenchendo uma coleta individual
+**Quando** ele insere uma nota superior a 10 ou uma taxa de conclusão negativa
+**Então** o sistema deve impedir o envio
+**E** exibir uma mensagem de validação orientando sobre os limites permitidos
+
+#### Cenário 3: Upload de coleta em lote via CSV
+**Dado** que o usuário está na aba "Coleta em Lote"
+**Quando** ele realiza o upload de um arquivo CSV estruturado corretamente
+**Então** o sistema deve realizar o parse dos dados
+**E** importar todos os beneficiários do lote para o histórico de uma só vez
