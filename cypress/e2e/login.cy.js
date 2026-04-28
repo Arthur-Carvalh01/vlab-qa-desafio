@@ -1,6 +1,6 @@
 describe('Pagina de login', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000/#')
+        cy.visit('/')
     });
     it('Ao digitar seu usuário e senha corretamente, o usuário irá logar na plataforma.', () => {
         cy.get('[data-testid="login-username"]').type('admin');

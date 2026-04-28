@@ -53,6 +53,17 @@ Executa todos os testes em segundo plano e exibe o relatório final diretamente 
 npx cypress run
 ```
 
+**Opção 3: Via Docker (Ambiente Isolado)**
+Esta opção permite executar os testes E2E em um container isolado, sem necessidade de instalar o Node.js ou o Cypress na máquina local.
+
+**Pré-condição:** Certifique-se de que a Aplicação Alvo (Plataforma de Gestão de Fomento) já esteja em execução na sua máquina, operando na porta `3000`. 
+> 🔗 **Repositório da Aplicação Alvo:** [https://github.com/nuneslg/Desafio-QA](https://github.com/nuneslg/Desafio-QA)
+
+1. Com a aplicação alvo rodando, abra um novo terminal na raiz **deste** repositório de testes.
+2. Execute o comando:
+   ```bash
+   docker compose up
+
 ## 📂 Estrutura do Repositório
 - `cypress/e2e/`: Contém os scripts de automação de testes (`.cy.js`).
 - `docs/`: Diretório contendo toda a documentação de QA da entrega:

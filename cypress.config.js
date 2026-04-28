@@ -4,6 +4,7 @@ module.exports = defineConfig({
   allowCypressEnv: false,
 
   e2e: {
+    baseUrl: 'http://localhost:3000', // <- O Cypress vai usar isso como padrão
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
